@@ -1,0 +1,18 @@
+{
+  "name": "blockchain-base-task-simplifier",
+  "version": "1.0.0",
+  "description": "A simple task management system for the Base blockchain.",
+  "main": "index.js",
+  "scripts": {
+    "test": "hardhat test",
+    "deploy": "node scripts/deploy.js"
+  },
+  "dependencies": {
+    "hardhat": "^2.0.0",
+    "ethers": "^5.0.0"
+  },
+  "devDependencies": {
+    "chai": "^4.3.4",
+    "mocha": "^8.3.2"
+  }
+}
