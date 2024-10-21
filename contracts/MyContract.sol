@@ -1,34 +1,33 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-contract MyContract {
-    struct Item {
+contract TaskManager {
+    struct Task {
         uint id;
-        string name;
-        bool isActive;
+        string description;
+        bool completed;
     }
 
-    mapping(uint => Item) public items;
-    uint public itemCount;
+    Task[] public tasks;
+    uint public taskCount;
 
-    event ItemCreated(uint id, string name);
-    event ItemUpdated(uint id, string name, bool isActive);
+    event TaskCreated(uint id, string description);
+    event TaskCompleted(uint id);
 
-    function createItem(string memory _name) public {
-        itemCount++;
-        items[itemCount] = Item(itemCount, _name, true);
-        emit ItemCreated(itemCount, _name);
+    function createTask(string memory _description) public {
+        taskCount++;
+        tasks.push(Task(taskCount, _description, false));
+        emit TaskCreated(taskCount, _description);
     }
 
-    function updateItem(uint _id, string memory _name, bool _isActive) public {
-        require(_id > 0 && _id <= itemCount, "Item ID is invalid");
-        items[_id].name = _name;
-        items[_id].isActive = _isActive;
-        emit ItemUpdated(_id, _name, _isActive);
+    function completeTask(uint _id) public {
+        require(_id > 0 && _id <= taskCount, "Task ID is invalid");
+        tasks[_id - 1].completed = true;
+        emit TaskCompleted(_id);
     }
 
-    function getItem(uint _id) public view returns (Item memory) {
-        require(_id > 0 && _id <= itemCount, "Item ID is invalid");
-        return items[_id];
+    function getTask(uint _id) public view returns (Task memory) {
+        require(_id > 0 && _id <= taskCount, "Task ID is invalid");
+        return tasks[_id - 1];
     }
 }
